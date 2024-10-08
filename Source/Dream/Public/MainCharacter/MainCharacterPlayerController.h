@@ -1,12 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "MainCharacterPlayerController.generated.h"
 
-
+// Forward Declarations
 struct FInputActionValue;
 class AMainCharacter;
 class UInputMappingContext;
@@ -17,12 +15,9 @@ UCLASS(Abstract)
 class DREAM_API AMainCharacterPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-
-protected:
-	virtual void OnPossess(APawn* aPawn) override;
-	virtual void OnUnPossess() override;
-
+	
 public:
+	
 	// Input Actions
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
 	TObjectPtr<UInputAction> ActionMove = nullptr;
@@ -42,13 +37,18 @@ protected:
 	void HandleMove(const FInputActionValue& Value);
 	void HandleLook(const FInputActionValue& Value);
 	void HandleJump();
+
+	// Overriding Members
+	virtual void OnPossess(APawn* aPawn) override;
+	virtual void OnUnPossess() override;
 	
 private:
+	
 	// Reference to the inputComponent cast to an EnhancedInputComponent
 	UPROPERTY()
-	UEnhancedInputComponent* EnhancedInputComponent = nullptr;
+	TObjectPtr<UEnhancedInputComponent> EnhancedInputComponent = nullptr;
 
 	// Reference To Main Character
 	UPROPERTY()
-	AMainCharacter* MainCharacter = nullptr;
+	TObjectPtr<AMainCharacter> MainCharacter = nullptr;
 };

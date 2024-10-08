@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "MainCharacter/MainCharacterPlayerController.h"
 #include "MainCharacter/MainCharacter.h"
 #include "EnhancedInputComponent.h"
@@ -10,9 +7,11 @@ void AMainCharacterPlayerController::OnPossess(APawn* aPawn)
 {
 	Super::OnPossess(aPawn);
 
+	
 	// Store a Reference to Main Character
 	MainCharacter = Cast<AMainCharacter>(aPawn);
 	checkf(MainCharacter, TEXT("AMainCharacter Derived Classes should only possess AMainCharacter derived pawns"));
+	
 
 	// Reference to the EnhancedInputComponent
 	EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
@@ -21,32 +20,22 @@ void AMainCharacterPlayerController::OnPossess(APawn* aPawn)
 	// Get the local Player Subsystem
 	UEnhancedInputLocalPlayerSubsystem* InputSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	checkf(InputSubsystem, TEXT("Unable to get reference to InputSubsystem"));
+
+	// Clearing And Adding MappingContext
 	InputSubsystem->ClearAllMappings();
 	InputSubsystem->AddMappingContext(InputMappingContext, 0);
 
-	// Bind the input Actions
+	// Binding the input Actions
 	// Only Attempt to Bind if a Valid value was provided
+	
 	if(ActionMove)
-	{
-		EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, this, &AMainCharacterPlayerController::HandleMove);
-	}
+		{EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, this, &AMainCharacterPlayerController::HandleMove);}
 	
 	if(ActionLook)
-	{
-		EnhancedInputComponent->BindAction(ActionLook, ETriggerEvent::Triggered, this,&AMainCharacterPlayerController::HandleLook);
-	}
+	{EnhancedInputComponent->BindAction(ActionLook, ETriggerEvent::Triggered, this,&AMainCharacterPlayerController::HandleLook);}
 
 	if (ActionJump)
-	{
-		EnhancedInputComponent->BindAction(ActionJump,ETriggerEvent::Triggered,this, &AMainCharacterPlayerController::HandleJump);
-	}
-}
-
-void AMainCharacterPlayerController::OnUnPossess()
-{
-	
-	// call the parent method
-	Super::OnUnPossess();
+	{EnhancedInputComponent->BindAction(ActionJump,ETriggerEvent::Triggered,this, &AMainCharacterPlayerController::HandleJump);}
 }
 
 void AMainCharacterPlayerController::HandleMove(const FInputActionValue& Value)
@@ -80,4 +69,13 @@ void AMainCharacterPlayerController::HandleJump()
 	{
 		MainCharacter->Jump();
 	}
+}
+
+void AMainCharacterPlayerController::OnUnPossess()
+{
+	// Unbinding Things Here
+	EnhancedInputComponent->ClearActionBindings();
+	
+	// call the parent method
+	Super::OnUnPossess();
 }
