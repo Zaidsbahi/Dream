@@ -181,7 +181,6 @@ void AD_Minion::OnPawnDetected(APawn* Pawn)
 	{
 		Chase(Pawn);
 	}
-	
 }
 
 void AD_Minion::OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)

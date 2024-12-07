@@ -292,3 +292,19 @@ void AD_Character::UpdateCharacterSkin()
 	}
 }
 
+void AD_Character::AddOrUpdatePlayerScore(FString PlayerName, int32 Score)
+	{for (FPlayerScore Entry : Leaderboard) {
+	if (Entry.PlayerName == PlayerName) {
+	Entry.Score += Score;
+	return;
+	}
+}
+	Leaderboard.Add(FPlayerScore(PlayerName, Score));
+}
+
+void AD_Character::SortLeaderboard()
+{
+	Algo::Sort(Leaderboard, [](const FPlayerScore& A, const FPlayerScore& B) {
+		return A.Score > B.Score; 
+	});
+}

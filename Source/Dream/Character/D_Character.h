@@ -4,6 +4,8 @@
 #include "GameFramework/Character.h"
 #include "D_Character.generated.h"
 
+#include "Algo/Sort.h"
+
 UCLASS()
 class DREAM_API AD_Character : public ACharacter
 {
@@ -109,5 +111,19 @@ public:
 	FORCEINLINE FD_CharacterSkins* GetCharacterSkins() const {return CharacterSkin;}
 
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
+	
+	
+	struct FPlayerScore{
+    		FString PlayerName;
+    		int32 Score;
+    		
+    		FPlayerScore(FString Name, int32 PlayerScore)
+    		: PlayerName(Name), Score(PlayerScore) {}
+    		};
+    		
+    TArray<FPlayerScore> Leaderboard;
+
+	void AddOrUpdatePlayerScore(FString PlayerName, int32 Score);
+	void SortLeaderboard();
 
 };

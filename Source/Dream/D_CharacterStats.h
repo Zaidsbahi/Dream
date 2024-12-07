@@ -5,6 +5,7 @@
 #include "D_CharacterStats.generated.h"
 
 
+
 USTRUCT(BlueprintType)
 struct DREAM_API FD_CharacterStats : public FTableRowBase
 {
@@ -26,3 +27,5 @@ struct DREAM_API FD_CharacterStats : public FTableRowBase
 	float StealthMultiplier = 1.0f;
 	
 };
+
+
