@@ -12,7 +12,6 @@ FTableRowBase
 
 	UPROPERTY(BluePrintReadWrite, EditAnywhere)
 	UMaterialInterface *Material4;
-
 	
 	UPROPERTY(BluePrintReadWrite, EditAnywhere)
 	UMaterialInterface *Material0;

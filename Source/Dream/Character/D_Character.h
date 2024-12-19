@@ -2,9 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Algo/Sort.h"
 #include "D_Character.generated.h"
 
-#include "Algo/Sort.h"
 
 UCLASS()
 class DREAM_API AD_Character : public ACharacter
